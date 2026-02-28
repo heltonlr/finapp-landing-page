@@ -1,0 +1,750 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>FinApp — Suas finanças sem fronteiras</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700;800&display=swap" rel="stylesheet">
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+    html { scroll-behavior: smooth; }
+    body { font-family: 'Inter', sans-serif; background: #1F1F1F; color: #FFFFFF; -webkit-font-smoothing: antialiased; }
+
+    :focus-visible { outline: 2px solid #00E676; outline-offset: 2px; }
+
+    .container { max-width: 1200px; margin: 0 auto; padding: 0 24px; }
+
+    h1 { font-size: 64px; font-weight: 800; line-height: 1.1; }
+    h2 { font-size: 42px; font-weight: 700; line-height: 1.15; }
+    h3 { font-size: 28px; font-weight: 700; }
+    p  { font-size: 17px; line-height: 1.6; }
+
+    /* Buttons */
+    .btn-pill {
+      display: inline-block;
+      background: #00E676;
+      color: #111111;
+      border-radius: 50px;
+      padding: 14px 28px;
+      font-weight: 700;
+      font-size: 15px;
+      border: none;
+      cursor: pointer;
+      transition: transform 0.2s, background 0.2s;
+      text-decoration: none;
+      font-family: 'Inter', sans-serif;
+    }
+    .btn-pill:hover { transform: scale(1.03); background: #00FF88; }
+
+    .btn-text-dark {
+      color: #00E676;
+      font-weight: 600;
+      text-decoration: none;
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      font-size: 15px;
+      transition: gap 0.2s;
+    }
+    .btn-text-dark:hover { gap: 10px; }
+
+    .btn-text-light {
+      color: #00A854;
+      font-weight: 600;
+      text-decoration: none;
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      font-size: 15px;
+      transition: gap 0.2s;
+    }
+    .btn-text-light:hover { gap: 10px; }
+
+    /* Fade-in */
+    .fade-in { opacity: 0; transform: translateY(30px); transition: opacity 0.6s ease, transform 0.6s ease; }
+    .fade-in.visible { opacity: 1; transform: translateY(0); }
+
+    /* Helpers */
+    .text-center { text-align: center; }
+    .mt-16  { margin-top: 16px; }
+    .mt-24  { margin-top: 24px; }
+    .mt-48  { margin-top: 48px; }
+    .section-pad { padding: 96px 0; }
+
+    /* ===== NAVBAR ===== */
+    nav {
+      position: fixed; top: 0; left: 0; right: 0; z-index: 100;
+      height: 72px;
+      background: rgba(31,31,31,0.85);
+      backdrop-filter: blur(12px);
+      -webkit-backdrop-filter: blur(12px);
+      transition: border-bottom 0.3s;
+    }
+    nav.scrolled { border-bottom: 1px solid rgba(255,255,255,0.08); }
+    .nav-inner {
+      max-width: 1200px; margin: 0 auto; padding: 0 24px;
+      height: 100%; display: flex; align-items: center; justify-content: space-between;
+    }
+    .nav-logo { font-size: 22px; font-weight: 800; color: #00E676; text-decoration: none; }
+    .nav-links { display: flex; align-items: center; gap: 32px; }
+    .nav-links a { color: #B5B5B5; text-decoration: none; font-size: 15px; font-weight: 500; transition: color 0.2s; }
+    .nav-links a:hover { color: #FFFFFF; }
+    .nav-right { display: flex; align-items: center; gap: 16px; }
+    .lang-btn {
+      background: none; border: 1px solid rgba(255,255,255,0.12);
+      color: #B5B5B5; padding: 6px 12px; border-radius: 20px;
+      font-size: 13px; cursor: pointer; font-family: 'Inter', sans-serif; transition: border-color 0.2s, color 0.2s;
+    }
+    .lang-btn:hover { border-color: rgba(255,255,255,0.3); color: #FFF; }
+    .hamburger {
+      display: none; background: none; border: none;
+      color: #FFFFFF; font-size: 22px; cursor: pointer; padding: 4px; line-height: 1;
+    }
+    .mobile-menu {
+      display: none; position: fixed; top: 60px; left: 0; right: 0;
+      background: rgba(17,17,17,0.97); backdrop-filter: blur(12px);
+      padding: 24px; z-index: 99;
+      flex-direction: column; gap: 20px;
+      border-bottom: 1px solid rgba(255,255,255,0.08);
+    }
+    .mobile-menu.open { display: flex; }
+    .mobile-menu a { color: #B5B5B5; text-decoration: none; font-size: 17px; font-weight: 500; transition: color 0.2s; }
+    .mobile-menu a:hover { color: #FFFFFF; }
+
+    /* ===== HERO ===== */
+    .hero {
+      min-height: 100vh; background: #1F1F1F;
+      display: flex; flex-direction: column; align-items: center; justify-content: center;
+      text-align: center; padding: 120px 24px 80px;
+    }
+    .hero h1 { color: #FFFFFF; margin-bottom: 24px; max-width: 700px; }
+    .hero .subtitle { color: #B5B5B5; max-width: 560px; margin: 0 auto 40px; font-size: 18px; }
+    .hero-ctas { display: flex; gap: 16px; align-items: center; justify-content: center; margin-bottom: 72px; flex-wrap: wrap; }
+    .hero-cta-sec {
+      color: #B5B5B5; font-size: 15px; font-weight: 500; cursor: pointer;
+      background: none; border: none; font-family: 'Inter', sans-serif; transition: color 0.2s;
+    }
+    .hero-cta-sec:hover { color: #FFF; }
+
+    /* Phone mockups */
+    .phones-container { position: relative; width: 100%; height: 580px; display: flex; align-items: flex-start; justify-content: center; }
+    .phone { position: absolute; border-radius: 36px; background: #0D0D0D; border: 2px solid rgba(255,255,255,0.12); overflow: hidden; }
+    .phone-screen { margin: 12px; border-radius: 24px; height: calc(100% - 24px); background: linear-gradient(160deg, #00E676, #00A854); }
+    .phone-center { width: 280px; height: 560px; z-index: 2; top: 0; }
+    .phone-left  { width: 240px; height: 480px; opacity: 0.55; top: 50px; transform: translateX(-210px); z-index: 1; }
+    .phone-right { width: 240px; height: 480px; opacity: 0.55; top: 50px; transform: translateX(210px);  z-index: 1; }
+
+    /* ===== FEATURES COMMON ===== */
+    .section-white { background: #FFFFFF; }
+    .section-gray  { background: #F7F7F7; }
+    .section-dark  { background: #111111; }
+    .section-green { background: #00E676; }
+
+    .feature-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 48px; align-items: center; }
+
+    /* ===== FEATURE 1 — CARTÃO ===== */
+    .card-visual { max-width: 380px; margin: 0 auto; width: 100%; }
+    .credit-card {
+      width: 100%; aspect-ratio: 1.586; border-radius: 16px;
+      background: linear-gradient(135deg, #e8e8e8, #f8f8f8);
+      padding: 24px; position: relative;
+      box-shadow: 0 8px 32px rgba(0,0,0,0.14);
+      display: flex; flex-direction: column; justify-content: space-between;
+    }
+    .card-brand  { font-weight: 800; font-size: 18px; color: #333; }
+    .card-number { font-family: monospace; color: #777; font-size: 15px; letter-spacing: 2px; }
+    .mastercard  { position: absolute; bottom: 24px; right: 24px; display: flex; }
+    .mc-c { width: 34px; height: 34px; border-radius: 50%; }
+    .mc-red    { background: #EB001B; }
+    .mc-orange { background: #F79E1B; margin-left: -12px; }
+
+    .feature-text h2 { color: #111111; margin-bottom: 16px; }
+    .feature-text p  { color: #555555; margin-bottom: 24px; }
+
+    /* ===== FEATURE 2 — TRANSFERÊNCIAS ===== */
+    .transfer-cards { display: flex; flex-direction: column; gap: 12px; max-width: 360px; margin: 0 auto; }
+    .transfer-card {
+      background: #FFFFFF; border-radius: 12px; padding: 16px 20px;
+      box-shadow: 0 2px 12px rgba(0,0,0,0.07);
+      display: flex; align-items: center; gap: 14px;
+      opacity: 0; transform: translateY(20px);
+      transition: opacity 0.5s ease, transform 0.5s ease;
+    }
+    .transfer-card.visible { opacity: 1; transform: translateY(0); }
+    .transfer-avatar {
+      width: 42px; height: 42px; border-radius: 50%;
+      background: #00E676; color: #111; font-weight: 700; font-size: 16px;
+      display: flex; align-items: center; justify-content: center; flex-shrink: 0;
+    }
+    .transfer-name   { font-size: 14px; font-weight: 600; color: #333; }
+    .transfer-amount { font-size: 13px; color: #777; margin-top: 2px; }
+
+    /* ===== FEATURE 3 — CONVERSÃO ===== */
+    .phone-frame-sm {
+      width: 260px; height: 480px; border-radius: 36px;
+      background: #0D0D0D; border: 2px solid rgba(255,255,255,0.1);
+      margin: 0 auto; overflow: hidden; padding: 20px 16px;
+    }
+    .ph-top  { font-size: 12px; color: #B5B5B5; text-align: center; margin-bottom: 8px; }
+    .ph-list { display: flex; flex-direction: column; margin-top: 8px; }
+    .ph-item {
+      display: flex; align-items: center; justify-content: space-between;
+      padding: 14px 0; border-bottom: 1px solid rgba(255,255,255,0.06);
+      color: #FFFFFF; font-size: 15px;
+    }
+    .ph-item:last-child { border-bottom: none; }
+    .ph-label { display: flex; align-items: center; gap: 10px; }
+    .ph-chev  { color: #B5B5B5; font-size: 20px; }
+
+    /* ===== POR QUÊ ===== */
+    .why-section { padding: 96px 0; }
+    .why-section h2      { color: #111111; text-align: center; margin-bottom: 16px; }
+    .why-subtitle        { color: #1A1A1A; text-align: center; max-width: 560px; margin: 0 auto 48px; font-size: 18px; }
+    .why-preview {
+      max-width: 720px; height: 400px; border-radius: 24px;
+      background: #1A1A1A; margin: 0 auto;
+      display: flex; flex-direction: column; align-items: center; justify-content: center;
+      position: relative; overflow: hidden;
+    }
+    .why-preview-icon { font-size: 52px; margin-bottom: 16px; }
+    .why-preview-text { color: #FFFFFF; font-weight: 600; font-size: 18px; }
+    .why-badge {
+      position: absolute; bottom: 20px; left: 20px;
+      background: rgba(0,230,118,0.15); border: 1px solid rgba(0,230,118,0.3);
+      border-radius: 20px; padding: 6px 14px; color: #00E676; font-weight: 700; font-size: 14px;
+    }
+
+    /* ===== CALCULADORA ===== */
+    .calc-wrap { background: #F7F7F7; border-radius: 20px; padding: 32px; }
+    .calc-label { font-size: 12px; font-weight: 600; color: #888; text-transform: uppercase; letter-spacing: 0.05em; margin-bottom: 8px; }
+    .calc-field {
+      background: #FFFFFF; border-radius: 12px; padding: 16px 20px;
+      margin-bottom: 8px; box-shadow: 0 2px 8px rgba(0,0,0,0.04);
+    }
+    .calc-sublabel { font-size: 12px; color: #AAA; margin-bottom: 6px; }
+    .calc-input {
+      width: 100%; border: none; background: transparent;
+      font-size: 28px; font-weight: 700; color: #111;
+      font-family: 'Inter', sans-serif; outline: none;
+    }
+    .calc-input::placeholder { color: #CCC; }
+    .calc-output { font-size: 28px; font-weight: 700; color: #111; min-height: 36px; }
+    .calc-sep { display: flex; justify-content: center; margin: 8px 0; }
+    .calc-arrow {
+      width: 44px; height: 44px; border-radius: 50%; background: #00E676;
+      border: none; cursor: pointer; font-size: 18px;
+      display: flex; align-items: center; justify-content: center; transition: transform 0.2s;
+    }
+    .calc-arrow:hover { transform: scale(1.1); }
+    .calc-rate { text-align: center; color: #00A854; font-size: 14px; font-weight: 600; margin: 14px 0 22px; }
+    .btn-pill-full { width: 100%; text-align: center; }
+
+    .phone-graph {
+      width: 260px; height: 420px; border-radius: 36px;
+      background: #0D0D0D; border: 2px solid rgba(255,255,255,0.1);
+      margin: 0 auto; padding: 20px 16px;
+      display: flex; flex-direction: column;
+    }
+    .graph-label  { font-size: 11px; color: #B5B5B5; text-align: center; margin-bottom: 12px; }
+    .graph-svg    { flex: 1; width: 100%; }
+    .graph-val    { font-size: 22px; font-weight: 700; color: #FFFFFF; text-align: center; margin-top: 14px; }
+    .graph-change { font-size: 13px; color: #00E676; text-align: center; margin-top: 4px; }
+
+    /* ===== SOCIAL PROOF ===== */
+    .ratings-row {
+      display: flex; gap: 32px; justify-content: center; align-items: center;
+      margin: 24px 0 48px; flex-wrap: wrap;
+    }
+    .rating-item { display: flex; align-items: center; gap: 8px; color: #B5B5B5; font-size: 14px; }
+    .rating-stars { color: #00E676; }
+    .reviews-grid { display: grid; grid-template-columns: repeat(3,1fr); gap: 24px; }
+    .review-card {
+      background: #1E1E1E; border: 1px solid rgba(255,255,255,0.06);
+      border-radius: 20px; padding: 28px;
+    }
+    .review-header { display: flex; align-items: center; gap: 12px; margin-bottom: 16px; }
+    .review-avatar {
+      width: 48px; height: 48px; border-radius: 50%;
+      background: #00E676; color: #111; font-weight: 700; font-size: 18px;
+      display: flex; align-items: center; justify-content: center; flex-shrink: 0;
+    }
+    .review-name  { font-size: 15px; font-weight: 600; color: #FFFFFF; }
+    .review-city  { font-size: 13px; color: #B5B5B5; margin-top: 2px; }
+    .review-stars { color: #00E676; font-size: 14px; margin-bottom: 12px; }
+    .review-text  { font-size: 14px; color: #B5B5B5; line-height: 1.65; }
+
+    /* ===== MÍDIA ===== */
+    .media-logos { display: flex; justify-content: center; align-items: center; gap: 48px; margin-top: 48px; flex-wrap: wrap; }
+    .media-logo {
+      font-size: 20px; font-weight: 700; color: #BBBBBB; opacity: 0.45;
+      cursor: default; transition: opacity 0.2s, color 0.2s; letter-spacing: -0.02em;
+    }
+    .media-logo:hover { opacity: 1; color: #333333; }
+
+    /* ===== MOVIMENTO GLOBAL ===== */
+    .dest-grid { display: grid; grid-template-columns: repeat(4,1fr); gap: 16px; margin: 48px 0; }
+    .dest-card { height: 200px; border-radius: 16px; position: relative; overflow: hidden; }
+    .dest-badge {
+      position: absolute; bottom: 12px; left: 12px;
+      background: rgba(0,0,0,0.55); backdrop-filter: blur(4px);
+      border-radius: 8px; padding: 4px 10px; font-size: 12px; color: #FFFFFF; font-weight: 500;
+    }
+
+    /* ===== FOOTER ===== */
+    footer { background: #111111; border-top: 1px solid rgba(255,255,255,0.08); padding: 64px 0 32px; }
+    .footer-grid { display: grid; grid-template-columns: 1fr 1fr 1fr 1fr; gap: 32px; margin-bottom: 48px; }
+    .footer-logo    { font-size: 22px; font-weight: 800; color: #00E676; margin-bottom: 12px; }
+    .footer-tagline { font-size: 14px; color: #777; line-height: 1.6; }
+    .footer-col h4  { font-size: 12px; font-weight: 700; color: #FFFFFF; margin-bottom: 16px; text-transform: uppercase; letter-spacing: 0.07em; }
+    .footer-col a   { display: block; color: #B5B5B5; text-decoration: none; font-size: 14px; margin-bottom: 10px; transition: color 0.2s; }
+    .footer-col a:hover { color: #FFFFFF; }
+    .footer-sep    { border: none; border-top: 1px solid rgba(255,255,255,0.06); margin: 0 0 24px; }
+    .footer-disc   { font-size: 12px; color: #666; line-height: 1.6; margin-bottom: 12px; }
+    .footer-copy   { font-size: 13px; color: #666; text-align: center; }
+
+    /* ===== STICKY CTA MOBILE ===== */
+    .sticky-cta {
+      display: none; position: fixed; bottom: 0; left: 0; right: 0;
+      padding: 12px 24px; background: rgba(17,17,17,0.96);
+      border-top: 1px solid rgba(255,255,255,0.08);
+      backdrop-filter: blur(8px); z-index: 98;
+    }
+    .sticky-cta .btn-pill { width: 100%; text-align: center; font-size: 16px; padding: 16px; }
+
+    /* ===== RESPONSIVE 768px ===== */
+    @media (max-width: 768px) {
+      h1 { font-size: 38px; }
+      h2 { font-size: 28px; }
+      .section-pad { padding: 72px 0; }
+
+      nav { height: 60px; }
+      .nav-links, .lang-btn { display: none; }
+      .hamburger { display: block; }
+
+      .hero { padding: 100px 24px 60px; }
+      .hero .subtitle { font-size: 16px; }
+      .hero-ctas { flex-direction: column; align-items: stretch; }
+      .hero-ctas .btn-pill { text-align: center; }
+
+      .phone-left, .phone-right { display: none; }
+      .phones-container { height: 420px; }
+      .phone-center { width: 220px; height: 420px; }
+
+      .feature-grid { grid-template-columns: 1fr; gap: 32px; }
+
+      .why-preview { height: 240px; }
+
+      .reviews-grid {
+        display: flex; overflow-x: auto; scroll-snap-type: x mandatory;
+        gap: 16px; padding-bottom: 16px; -webkit-overflow-scrolling: touch;
+      }
+      .review-card { min-width: 85vw; scroll-snap-align: start; flex-shrink: 0; }
+
+      .dest-grid { grid-template-columns: repeat(2,1fr); }
+
+      .footer-grid { grid-template-columns: 1fr 1fr; gap: 24px; }
+      .media-logos { gap: 24px; }
+
+      .phone-graph { display: none; }
+      .sticky-cta  { display: block; }
+      body { padding-bottom: 72px; }
+    }
+
+    /* ===== RESPONSIVE 480px ===== */
+    @media (max-width: 480px) {
+      h1 { font-size: 32px; }
+      h2 { font-size: 24px; }
+      .section-pad { padding: 56px 0; }
+      .dest-card { height: 140px; }
+      .footer-grid { grid-template-columns: 1fr; }
+      .ratings-row { gap: 16px; }
+      .hero-ctas { gap: 12px; }
+    }
+  </style>
+</head>
+<body>
+
+  <!-- ===== NAVBAR ===== -->
+  <nav id="navbar">
+    <div class="nav-inner">
+      <a href="#" class="nav-logo">FinApp</a>
+      <div class="nav-links">
+        <a href="#">Blog</a>
+        <a href="#">FAQ</a>
+      </div>
+      <div class="nav-right">
+        <button class="lang-btn">🇧🇷 PT</button>
+        <a href="#" class="btn-pill">Cadastre-se</a>
+        <button class="hamburger" id="hamburger-btn" aria-label="Abrir menu" aria-expanded="false">☰</button>
+      </div>
+    </div>
+    <div class="mobile-menu" id="mobile-menu" role="navigation" aria-label="Menu mobile">
+      <a href="#">Blog</a>
+      <a href="#">FAQ</a>
+      <a href="#">🇧🇷 Português</a>
+    </div>
+  </nav>
+
+  <main>
+
+    <!-- ===== HERO ===== -->
+    <section class="hero">
+      <h1 class="fade-in">Os países têm fronteiras.<br>Suas finanças, não mais.</h1>
+      <p class="subtitle fade-in">Diga tchau às tarifas abusivas. Diga tchau às fronteiras financeiras. Diga oi para a FinApp.</p>
+      <div class="hero-ctas fade-in">
+        <a href="#" class="btn-pill">Comece grátis</a>
+        <button class="hero-cta-sec" onclick="document.getElementById('features').scrollIntoView({behavior:'smooth'})">Ver como funciona ↓</button>
+      </div>
+      <div class="phones-container fade-in" aria-hidden="true">
+        <div class="phone phone-left"><div class="phone-screen"></div></div>
+        <div class="phone phone-center"><div class="phone-screen"></div></div>
+        <div class="phone phone-right"><div class="phone-screen"></div></div>
+      </div>
+    </section>
+
+    <!-- ===== FEATURE 1 — PAGAMENTO GLOBAL ===== -->
+    <section class="section-white section-pad" id="features">
+      <div class="container">
+        <div class="feature-grid">
+          <div class="card-visual fade-in">
+            <div class="credit-card">
+              <div class="card-brand">FinApp</div>
+              <div class="card-number">•••• •••• •••• 4242</div>
+              <div class="mastercard" aria-hidden="true">
+                <div class="mc-c mc-red"></div>
+                <div class="mc-c mc-orange"></div>
+              </div>
+            </div>
+          </div>
+          <div class="feature-text fade-in">
+            <h2>Pague em qualquer lugar do mundo com tarifas justas e transparentes.</h2>
+            <p>Seu cartão FinApp é aceito em milhões de estabelecimentos ao redor do mundo. Sem taxas escondidas, sem surpresas na fatura.</p>
+            <a href="#" class="btn-text-light">Saiba mais →</a>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ===== FEATURE 2 — TRANSFERÊNCIAS ===== -->
+    <section class="section-gray section-pad">
+      <div class="container">
+        <div class="feature-grid">
+          <div class="feature-text fade-in">
+            <h2>Envie e receba transferências em dólares e euros.</h2>
+            <p>Transfira dinheiro para qualquer pessoa no mundo em segundos, com as melhores taxas do mercado.</p>
+            <p style="font-size:12px;color:#999;margin-top:8px;margin-bottom:20px">* Sujeito a limites e disponibilidade por região.</p>
+            <a href="#" class="btn-text-light">Saiba mais →</a>
+          </div>
+          <div class="card-visual fade-in">
+            <div class="transfer-cards" id="transfer-cards">
+              <div class="transfer-card">
+                <div class="transfer-avatar">M</div>
+                <div>
+                  <div class="transfer-name">Maria enviou</div>
+                  <div class="transfer-amount">R$ 800,00 → 🇺🇸 $155.34 USD</div>
+                </div>
+              </div>
+              <div class="transfer-card">
+                <div class="transfer-avatar">J</div>
+                <div>
+                  <div class="transfer-name">João recebeu</div>
+                  <div class="transfer-amount">🇪🇺 €200.00 → R$ 1.092,00</div>
+                </div>
+              </div>
+              <div class="transfer-card">
+                <div class="transfer-avatar">A</div>
+                <div>
+                  <div class="transfer-name">Ana enviou</div>
+                  <div class="transfer-amount">R$ 2.500,00 → 🇺🇸 $485.44 USD</div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ===== FEATURE 3 — CONVERSÃO ===== -->
+    <section class="section-white section-pad">
+      <div class="container">
+        <div class="feature-grid">
+          <div class="card-visual fade-in">
+            <div class="phone-frame-sm" aria-label="Interface do app FinApp mostrando opções de moeda" role="img">
+              <div class="ph-top">Selecione a moeda</div>
+              <div class="ph-list">
+                <div class="ph-item"><div class="ph-label">🇧🇷 <span>Reais</span></div><span class="ph-chev">›</span></div>
+                <div class="ph-item"><div class="ph-label">🇺🇸 <span>Dólares</span></div><span class="ph-chev">›</span></div>
+                <div class="ph-item"><div class="ph-label">🇪🇺 <span>Euros</span></div><span class="ph-chev">›</span></div>
+                <div class="ph-item"><div class="ph-label">🔵 <span>Cripto</span></div><span class="ph-chev">›</span></div>
+              </div>
+            </div>
+          </div>
+          <div class="feature-text fade-in">
+            <h2>Compre dólares digitais com reais, em segundos.</h2>
+            <p>Converta entre reais, dólares, euros e cripto com as melhores taxas, diretamente pelo app. Sem burocracia, sem filas.</p>
+            <a href="#" class="btn-text-light">Saiba mais →</a>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ===== POR QUÊ FINAPP? ===== -->
+    <section class="section-green why-section">
+      <div class="container">
+        <h2 class="fade-in">Por que a FinApp?</h2>
+        <p class="why-subtitle fade-in">Construída para quem vive sem fronteiras. Simples, transparente e sempre ao seu lado.</p>
+        <div class="why-preview fade-in" role="img" aria-label="Ilustração da interface do app FinApp">
+          <div class="why-preview-icon">📱</div>
+          <div class="why-preview-text">FinApp — suas finanças, sem fronteiras</div>
+          <div class="why-badge">FinApp</div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ===== CALCULADORA ===== -->
+    <section class="section-white section-pad">
+      <div class="container">
+        <h2 class="text-center fade-in" style="color:#111111">Ninguém faz isso melhor.<br>Experimente você mesmo.</h2>
+        <div class="feature-grid mt-48">
+          <div class="fade-in">
+            <div class="calc-wrap">
+              <div class="calc-label">Você envia</div>
+              <div class="calc-field">
+                <div class="calc-sublabel">BRL — Real Brasileiro</div>
+                <input
+                  type="number" id="brl-input" class="calc-input"
+                  placeholder="1000" min="0"
+                  aria-label="Valor em reais brasileiros"
+                >
+              </div>
+              <div class="calc-sep">
+                <button class="calc-arrow" aria-hidden="true" tabindex="-1">↕</button>
+              </div>
+              <div class="calc-label mt-16">Você recebe</div>
+              <div class="calc-field">
+                <div class="calc-sublabel">USD — Dólar Americano</div>
+                <div id="usd-output" class="calc-output" aria-live="polite" aria-label="Valor convertido em dólares americanos">0.00</div>
+              </div>
+              <div class="calc-rate">↗ $1 = 5.15 BRL — taxa de hoje</div>
+              <button class="btn-pill btn-pill-full">Converter agora</button>
+            </div>
+          </div>
+          <div class="fade-in">
+            <div class="phone-graph" aria-label="Gráfico de variação BRL/USD dos últimos 30 dias" role="img">
+              <div class="graph-label">BRL/USD — últimos 30 dias</div>
+              <svg class="graph-svg" viewBox="0 0 228 120" fill="none" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
+                <defs>
+                  <linearGradient id="gGrad" x1="0" y1="0" x2="0" y2="1">
+                    <stop offset="0%"   stop-color="#00E676" stop-opacity="0.3"/>
+                    <stop offset="100%" stop-color="#00E676" stop-opacity="0"/>
+                  </linearGradient>
+                </defs>
+                <path d="M0,90 C25,78 50,100 80,65 C110,28 145,55 175,32 C195,18 212,25 228,14"
+                      stroke="#00E676" stroke-width="2.5" stroke-linecap="round" fill="none"/>
+                <path d="M0,90 C25,78 50,100 80,65 C110,28 145,55 175,32 C195,18 212,25 228,14 L228,120 L0,120 Z"
+                      fill="url(#gGrad)"/>
+              </svg>
+              <div class="graph-val">$1 = R$ 5,15</div>
+              <div class="graph-change">↑ +0.8% hoje</div>
+            </div>
+          </div>
+        </div>
+        <div class="text-center mt-48 fade-in">
+          <a href="#" class="btn-pill" style="font-size:17px;padding:18px 40px">Criar conta grátis</a>
+        </div>
+      </div>
+    </section>
+
+    <!-- ===== SOCIAL PROOF ===== -->
+    <section class="section-dark section-pad">
+      <div class="container">
+        <h2 class="text-center fade-in">Para quem está <span style="color:#00E676">sempre</span> em movimento.</h2>
+        <div class="ratings-row fade-in">
+          <div class="rating-item">🍎 App Store &nbsp;<span class="rating-stars">★★★★★</span>&nbsp; 4.5</div>
+          <div class="rating-item">▶ Google Play &nbsp;<span class="rating-stars">★★★★★</span>&nbsp; 4.7</div>
+        </div>
+        <div class="reviews-grid fade-in">
+          <div class="review-card">
+            <div class="review-header">
+              <div class="review-avatar">C</div>
+              <div>
+                <div class="review-name">Camila Torres</div>
+                <div class="review-city">São Paulo, Brasil</div>
+              </div>
+            </div>
+            <div class="review-stars">★★★★★</div>
+            <p class="review-text">"Finalmente um app que entende quem trabalha com clientes internacionais. Recebi meu pagamento em dólares e converti em segundos. Taxa justa, sem surpresas."</p>
+          </div>
+          <div class="review-card">
+            <div class="review-header">
+              <div class="review-avatar">R</div>
+              <div>
+                <div class="review-name">Rafael Mendes</div>
+                <div class="review-city">Lisboa, Portugal</div>
+              </div>
+            </div>
+            <div class="review-stars">★★★★★</div>
+            <p class="review-text">"Moro em Portugal e mantenho minha conta no Brasil. A FinApp virou minha ponte. Simples, rápido e confiável. Já recomendei para toda minha equipe."</p>
+          </div>
+          <div class="review-card">
+            <div class="review-header">
+              <div class="review-avatar">L</div>
+              <div>
+                <div class="review-name">Letícia Souza</div>
+                <div class="review-city">Miami, EUA</div>
+              </div>
+            </div>
+            <div class="review-stars">★★★★★</div>
+            <p class="review-text">"Uso para pagar assinaturas, transferir para a família e converter cripto. Tudo em um lugar. Interface incrível e suporte que responde em minutos."</p>
+          </div>
+        </div>
+        <div class="text-center mt-48 fade-in">
+          <a href="#" class="btn-pill" style="font-size:16px;padding:16px 40px">Abrir minha conta</a>
+        </div>
+      </div>
+    </section>
+
+    <!-- ===== MÍDIA ===== -->
+    <section class="section-white section-pad">
+      <div class="container">
+        <h3 class="text-center fade-in" style="color:#111111">O que os especialistas dizem sobre nós.</h3>
+        <div class="media-logos fade-in">
+          <span class="media-logo">Bloomberg</span>
+          <span class="media-logo" style="font-style:italic">Yahoo Finance</span>
+          <span class="media-logo" style="font-family:Georgia,serif">TechCrunch</span>
+          <span class="media-logo" style="font-style:italic;letter-spacing:0.04em">Forbes</span>
+        </div>
+      </div>
+    </section>
+
+    <!-- ===== MOVIMENTO GLOBAL ===== -->
+    <section class="section-dark section-pad">
+      <div class="container">
+        <h2 class="text-center fade-in">Participe do movimento <span style="color:#00E676">global</span>.</h2>
+        <div class="ratings-row fade-in">
+          <div class="rating-item">🍎 App Store &nbsp;<span class="rating-stars">★★★★★</span>&nbsp; 4.5</div>
+          <div class="rating-item">▶ Google Play &nbsp;<span class="rating-stars">★★★★★</span>&nbsp; 4.7</div>
+        </div>
+        <div class="dest-grid fade-in">
+          <div class="dest-card" style="background:linear-gradient(135deg,#f093fb,#f5576c)"><div class="dest-badge">📍 Barcelona</div></div>
+          <div class="dest-card" style="background:linear-gradient(135deg,#4facfe,#00f2fe)"><div class="dest-badge">📍 Cairo</div></div>
+          <div class="dest-card" style="background:linear-gradient(135deg,#43e97b,#38f9d7)"><div class="dest-badge">📍 Tóquio</div></div>
+          <div class="dest-card" style="background:linear-gradient(135deg,#fa709a,#fee140)"><div class="dest-badge">📍 Lisboa</div></div>
+          <div class="dest-card" style="background:linear-gradient(135deg,#a18cd1,#fbc2eb)"><div class="dest-badge">📍 Miami</div></div>
+          <div class="dest-card" style="background:linear-gradient(135deg,#fccb90,#d57eeb)"><div class="dest-badge">📍 Dubai</div></div>
+          <div class="dest-card" style="background:linear-gradient(135deg,#667eea,#764ba2)"><div class="dest-badge">📍 Londres</div></div>
+          <div class="dest-card" style="background:linear-gradient(135deg,#f7971e,#ffd200)"><div class="dest-badge">📍 Nova York</div></div>
+        </div>
+        <div class="text-center fade-in">
+          <a href="#" class="btn-pill" style="font-size:17px;padding:18px 48px">Baixar FinApp</a>
+        </div>
+      </div>
+    </section>
+
+  </main>
+
+  <!-- ===== FOOTER ===== -->
+  <footer>
+    <div class="container">
+      <div class="footer-grid">
+        <div>
+          <div class="footer-logo">FinApp</div>
+          <p class="footer-tagline">Suas finanças,<br>sem fronteiras.</p>
+        </div>
+        <div class="footer-col">
+          <h4>Empresa</h4>
+          <a href="#">FAQ</a>
+          <a href="#">Termos e políticas</a>
+          <a href="#">Trabalhe conosco</a>
+          <a href="#">Contato</a>
+          <a href="#">Ouvidoria</a>
+          <a href="#">Privacidade (DPO)</a>
+        </div>
+        <div class="footer-col">
+          <h4>Comunidade</h4>
+          <a href="#">Telegram</a>
+        </div>
+        <div class="footer-col">
+          <h4>Siga-nos</h4>
+          <a href="#">Instagram</a>
+          <a href="#">X (Twitter)</a>
+          <a href="#">LinkedIn</a>
+          <a href="#">Facebook</a>
+        </div>
+      </div>
+      <hr class="footer-sep">
+      <p class="footer-disc">A FinApp é uma empresa de tecnologia financeira, não um banco. Os serviços bancários são fornecidos pelo Banco Parceiro, membro do FDIC. Produtos de investimento não são garantidos pelo FDIC, podem perder valor e não são depósitos bancários.</p>
+      <p class="footer-copy">© 2025 FinApp. Todos os direitos reservados.</p>
+    </div>
+  </footer>
+
+  <!-- ===== STICKY CTA MOBILE ===== -->
+  <div class="sticky-cta" aria-hidden="true">
+    <a href="#" class="btn-pill">Cadastre-se grátis</a>
+  </div>
+
+  <script>
+    // Navbar scroll
+    const navbar = document.getElementById('navbar');
+    window.addEventListener('scroll', () => {
+      navbar.classList.toggle('scrolled', window.scrollY > 50);
+    }, { passive: true });
+
+    // Hamburger menu
+    const hamburgerBtn = document.getElementById('hamburger-btn');
+    const mobileMenu   = document.getElementById('mobile-menu');
+    hamburgerBtn.addEventListener('click', () => {
+      const isOpen = mobileMenu.classList.toggle('open');
+      hamburgerBtn.textContent = isOpen ? '✕' : '☰';
+      hamburgerBtn.setAttribute('aria-expanded', String(isOpen));
+    });
+
+    // Fechar mobile menu ao clicar em link
+    mobileMenu.querySelectorAll('a').forEach(link => {
+      link.addEventListener('click', () => {
+        mobileMenu.classList.remove('open');
+        hamburgerBtn.textContent = '☰';
+        hamburgerBtn.setAttribute('aria-expanded', 'false');
+      });
+    });
+
+    // IntersectionObserver — fade-in genérico
+    const fadeEls = document.querySelectorAll('.fade-in');
+    const fadeObserver = new IntersectionObserver((entries) => {
+      entries.forEach(entry => {
+        if (entry.isIntersecting) {
+          entry.target.classList.add('visible');
+          fadeObserver.unobserve(entry.target);
+        }
+      });
+    }, { threshold: 0.15 });
+    fadeEls.forEach(el => fadeObserver.observe(el));
+
+    // Transfer cards — stagger animation
+    const transferCards = document.querySelectorAll('.transfer-card');
+    const cardObserver = new IntersectionObserver((entries) => {
+      if (entries[0].isIntersecting) {
+        transferCards.forEach((card, i) => {
+          setTimeout(() => card.classList.add('visible'), i * 160);
+        });
+        cardObserver.disconnect();
+      }
+    }, { threshold: 0.2 });
+    const tcContainer = document.getElementById('transfer-cards');
+    if (tcContainer) cardObserver.observe(tcContainer);
+
+    // Calculadora
+    const RATE      = 5.15;
+    const brlInput  = document.getElementById('brl-input');
+    const usdOutput = document.getElementById('usd-output');
+    brlInput.addEventListener('input', () => {
+      const val = parseFloat(brlInput.value) || 0;
+      usdOutput.textContent = val > 0
+        ? (val / RATE).toLocaleString('en-US', { minimumFractionDigits: 2, maximumFractionDigits: 2 })
+        : '0.00';
+    });
+  </script>
+</body>
+</html>
