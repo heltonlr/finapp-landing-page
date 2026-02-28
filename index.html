@@ -218,15 +218,47 @@
     .why-section { padding: 96px 0; }
     .why-section h2      { color: #111111; text-align: center; margin-bottom: 16px; }
     .why-subtitle        { color: #1A1A1A; text-align: center; max-width: 560px; margin: 0 auto 48px; font-size: 18px; }
-    .video-wrapper {
-      max-width: 720px; margin: 0 auto; border-radius: 24px;
-      overflow: hidden; position: relative; padding-bottom: 56.25%; height: 0;
+    .screenshot-wrapper {
+      max-width: 960px; height: 300px; margin: 0 auto;
+      border-radius: 16px; overflow: hidden;
       box-shadow: 0 24px 64px rgba(0,0,0,0.3);
+      background: #0D0D0D;
+      display: flex; flex-direction: column;
     }
-    .video-wrapper iframe {
-      position: absolute; top: 0; left: 0;
-      width: 100%; height: 100%; border: none;
+    .sc-bar {
+      height: 36px; background: #1A1A1A; flex-shrink: 0;
+      display: flex; align-items: center; padding: 0 14px; gap: 6px;
+      border-bottom: 1px solid rgba(255,255,255,0.06);
     }
+    .sc-dot { width: 10px; height: 10px; border-radius: 50%; }
+    .sc-body { flex: 1; display: flex; }
+    .sc-sidebar {
+      width: 180px; background: #111; border-right: 1px solid rgba(255,255,255,0.05);
+      padding: 16px 12px; display: flex; flex-direction: column; gap: 6px; flex-shrink: 0;
+    }
+    .sc-nav-item {
+      padding: 8px 12px; border-radius: 8px; font-size: 12px;
+      color: rgba(255,255,255,0.4); font-family: 'Inter', sans-serif;
+    }
+    .sc-nav-item.active { background: rgba(0,230,118,0.12); color: #00E676; font-weight: 600; }
+    .sc-main { flex: 1; padding: 20px; display: flex; flex-direction: column; gap: 12px; }
+    .sc-row { display: flex; gap: 12px; }
+    .sc-card {
+      background: #1A1A1A; border-radius: 10px; padding: 14px 16px;
+      border: 1px solid rgba(255,255,255,0.05); flex: 1;
+    }
+    .sc-card-label { font-size: 10px; color: rgba(255,255,255,0.35); font-family: 'Inter', sans-serif; margin-bottom: 6px; }
+    .sc-card-val { font-size: 18px; font-weight: 700; color: #FFF; font-family: 'Inter', sans-serif; }
+    .sc-card-sub { font-size: 10px; color: #00E676; font-family: 'Inter', sans-serif; margin-top: 3px; }
+    .sc-graph { background: #1A1A1A; border-radius: 10px; border: 1px solid rgba(255,255,255,0.05); flex: 1; overflow: hidden; }
+    .sc-list { display: flex; flex-direction: column; gap: 6px; }
+    .sc-list-item {
+      background: #1A1A1A; border-radius: 8px; padding: 10px 14px;
+      display: flex; justify-content: space-between; align-items: center;
+      border: 1px solid rgba(255,255,255,0.04);
+    }
+    .sc-list-label { font-size: 11px; color: rgba(255,255,255,0.5); font-family: 'Inter', sans-serif; }
+    .sc-list-val   { font-size: 11px; color: #00E676; font-weight: 600; font-family: 'Inter', sans-serif; }
 
     /* ===== CALCULADORA ===== */
     .calc-wrap { background: #F7F7F7; border-radius: 20px; padding: 32px; }
@@ -511,13 +543,54 @@
       <div class="container">
         <h2 class="fade-in">Por que a FinApp?</h2>
         <p class="why-subtitle fade-in">Construída para quem vive sem fronteiras. Simples, transparente e sempre ao seu lado.</p>
-        <div class="video-wrapper fade-in">
-          <iframe
-            src="https://www.youtube.com/embed/aircAruvnKk"
-            title="But what is a neural network? — 3Blue1Brown"
-            allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
-            allowfullscreen>
-          </iframe>
+        <div class="screenshot-wrapper fade-in" aria-label="Screenshot do dashboard FinApp" role="img">
+          <div class="sc-bar">
+            <div class="sc-dot" style="background:#FF5F56"></div>
+            <div class="sc-dot" style="background:#FFBD2E"></div>
+            <div class="sc-dot" style="background:#27C93F"></div>
+          </div>
+          <div class="sc-body">
+            <div class="sc-sidebar">
+              <div class="sc-nav-item active">Dashboard</div>
+              <div class="sc-nav-item">Carteira</div>
+              <div class="sc-nav-item">Transferências</div>
+              <div class="sc-nav-item">Conversão</div>
+              <div class="sc-nav-item">Histórico</div>
+            </div>
+            <div class="sc-main">
+              <div class="sc-row">
+                <div class="sc-card">
+                  <div class="sc-card-label">SALDO USD</div>
+                  <div class="sc-card-val">$4,820.00</div>
+                  <div class="sc-card-sub">↑ +2.4% hoje</div>
+                </div>
+                <div class="sc-card">
+                  <div class="sc-card-label">SALDO BRL</div>
+                  <div class="sc-card-val">R$ 12.430</div>
+                  <div class="sc-card-sub">↑ +0.8% hoje</div>
+                </div>
+                <div class="sc-card" style="flex:1.4">
+                  <div class="sc-card-label">CÂMBIO ATUAL</div>
+                  <div class="sc-card-val">$1 = R$ 5,15</div>
+                  <div class="sc-card-sub">↗ Atualizado agora</div>
+                </div>
+              </div>
+              <div class="sc-row" style="flex:1">
+                <div class="sc-graph">
+                  <svg width="100%" height="100%" viewBox="0 0 400 100" preserveAspectRatio="none">
+                    <path d="M0,70 C40,55 80,80 130,50 C180,20 230,45 280,28 C320,14 360,22 400,10" stroke="#00E676" stroke-width="2" fill="none"/>
+                    <path d="M0,70 C40,55 80,80 130,50 C180,20 230,45 280,28 C320,14 360,22 400,10 L400,100 L0,100Z" fill="url(#sg)" opacity="0.15"/>
+                    <defs><linearGradient id="sg" x1="0" y1="0" x2="0" y2="1"><stop offset="0%" stop-color="#00E676"/><stop offset="100%" stop-color="#00E676" stop-opacity="0"/></linearGradient></defs>
+                  </svg>
+                </div>
+                <div style="display:flex;flex-direction:column;gap:6px;width:180px;flex-shrink:0">
+                  <div class="sc-list-item"><span class="sc-list-label">USD → BRL</span><span class="sc-list-val">5,15</span></div>
+                  <div class="sc-list-item"><span class="sc-list-label">EUR → BRL</span><span class="sc-list-val">5,62</span></div>
+                  <div class="sc-list-item"><span class="sc-list-label">BTC → USD</span><span class="sc-list-val">67.4k</span></div>
+                </div>
+              </div>
+            </div>
+          </div>
         </div>
       </div>
     </section>
