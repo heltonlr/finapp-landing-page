@@ -91,11 +91,13 @@
     .nav-links { display: flex; align-items: center; gap: 32px; }
     .nav-links a { color: #B5B5B5; text-decoration: none; font-size: 15px; font-weight: 500; transition: color 0.2s; }
     .nav-links a:hover { color: #FFFFFF; }
-    .nav-right { display: flex; align-items: center; gap: 16px; }
+    .nav-right { display: flex; align-items: center; gap: 16px; margin-left: auto; }
     .lang-btn {
       background: none; border: 1px solid rgba(255,255,255,0.12);
-      color: #B5B5B5; padding: 6px 12px; border-radius: 20px;
-      font-size: 13px; cursor: pointer; font-family: 'Inter', sans-serif; transition: border-color 0.2s, color 0.2s;
+      color: #B5B5B5; padding: 14px 16px; border-radius: 50px;
+      font-size: 15px; cursor: pointer; font-family: 'Inter', sans-serif;
+      font-weight: 600; transition: border-color 0.2s, color 0.2s;
+      line-height: 1;
     }
     .lang-btn:hover { border-color: rgba(255,255,255,0.3); color: #FFF; }
     .hamburger {
@@ -123,10 +125,13 @@
     .hero .subtitle { color: #B5B5B5; max-width: 560px; margin: 0 auto 40px; font-size: 18px; }
     .hero-ctas { display: flex; gap: 16px; align-items: center; justify-content: center; margin-bottom: 72px; flex-wrap: wrap; }
     .hero-cta-sec {
-      color: #B5B5B5; font-size: 15px; font-weight: 500; cursor: pointer;
-      background: none; border: none; font-family: 'Inter', sans-serif; transition: color 0.2s;
+      color: #FFFFFF; font-size: 15px; font-weight: 700; cursor: pointer;
+      background: none; border: 1px solid rgba(255,255,255,0.2); border-radius: 50px;
+      padding: 14px 28px; font-family: 'Inter', sans-serif;
+      transition: border-color 0.2s, background 0.2s;
+      text-decoration: none; display: inline-block;
     }
-    .hero-cta-sec:hover { color: #FFF; }
+    .hero-cta-sec:hover { border-color: rgba(255,255,255,0.5); background: rgba(255,255,255,0.05); }
 
     /* Phone mockups */
     .phones-container { position: relative; width: 100%; height: 580px; display: flex; align-items: flex-start; justify-content: center; }
@@ -322,6 +327,7 @@
       nav { height: 60px; }
       .nav-links, .lang-btn { display: none; }
       .hamburger { display: block; }
+      .hero h1 span { white-space: normal; }
 
       .hero { padding: 100px 24px 60px; }
       .hero .subtitle { font-size: 16px; }
@@ -370,11 +376,11 @@
   <nav id="navbar">
     <div class="nav-inner">
       <a href="#" class="nav-logo">FinApp</a>
-      <div class="nav-links">
-        <a href="#">Blog</a>
-        <a href="#">FAQ</a>
-      </div>
       <div class="nav-right">
+        <div class="nav-links">
+          <a href="#">Blog</a>
+          <a href="#">FAQ</a>
+        </div>
         <button class="lang-btn">🇧🇷 PT</button>
         <a href="#" class="btn-pill">Cadastre-se</a>
         <button class="hamburger" id="hamburger-btn" aria-label="Abrir menu" aria-expanded="false">☰</button>
@@ -391,7 +397,10 @@
 
     <!-- ===== HERO ===== -->
     <section class="hero">
-      <h1 class="fade-in">Os países têm fronteiras.<br>Suas finanças, não mais.</h1>
+      <h1 class="fade-in">
+        <span style="display:block;white-space:nowrap">Os países têm fronteiras.</span>
+        <span style="display:block;white-space:nowrap">Suas finanças, não mais.</span>
+      </h1>
       <p class="subtitle fade-in">Diga tchau às tarifas abusivas. Diga tchau às fronteiras financeiras. Diga oi para a FinApp.</p>
       <div class="hero-ctas fade-in">
         <a href="#" class="btn-pill">Comece grátis</a>
