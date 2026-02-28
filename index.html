@@ -73,6 +73,17 @@
     .mt-48  { margin-top: 48px; }
     .section-pad { padding: 96px 0; }
 
+    /* Currency badges (flag replacement) */
+    .cur {
+      display: inline-block; font-size: 9px; font-weight: 700;
+      letter-spacing: 0.06em; padding: 2px 5px; border-radius: 3px;
+      background: rgba(255,255,255,0.14); color: rgba(255,255,255,0.75);
+      vertical-align: middle; margin-right: 2px; line-height: 1.4;
+    }
+    .cur-dark {
+      background: rgba(0,0,0,0.08); color: rgba(0,0,0,0.45);
+    }
+
     /* ===== NAVBAR ===== */
     nav {
       position: fixed; top: 0; left: 0; right: 0; z-index: 100;
@@ -381,7 +392,7 @@
           <a href="#">Blog</a>
           <a href="#">FAQ</a>
         </div>
-        <button class="lang-btn">🇧🇷 PT</button>
+        <button class="lang-btn"><svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" style="vertical-align:middle;margin-right:5px"><circle cx="12" cy="12" r="10"/><line x1="2" y1="12" x2="22" y2="12"/><path d="M12 2a15.3 15.3 0 0 1 4 10 15.3 15.3 0 0 1-4 10 15.3 15.3 0 0 1-4-10 15.3 15.3 0 0 1 4-10z"/></svg>PT</button>
         <a href="#" class="btn-pill">Cadastre-se</a>
         <button class="hamburger" id="hamburger-btn" aria-label="Abrir menu" aria-expanded="false">☰</button>
       </div>
@@ -389,7 +400,7 @@
     <div class="mobile-menu" id="mobile-menu" role="navigation" aria-label="Menu mobile">
       <a href="#">Blog</a>
       <a href="#">FAQ</a>
-      <a href="#">🇧🇷 Português</a>
+      <a href="#"><svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" style="vertical-align:middle;margin-right:6px"><circle cx="12" cy="12" r="10"/><line x1="2" y1="12" x2="22" y2="12"/><path d="M12 2a15.3 15.3 0 0 1 4 10 15.3 15.3 0 0 1-4 10 15.3 15.3 0 0 1-4-10 15.3 15.3 0 0 1 4-10z"/></svg>Português</a>
     </div>
   </nav>
 
@@ -452,21 +463,21 @@
                 <div class="transfer-avatar">M</div>
                 <div>
                   <div class="transfer-name">Maria enviou</div>
-                  <div class="transfer-amount">R$ 800,00 → 🇺🇸 $155.34 USD</div>
+                  <div class="transfer-amount">R$ 800,00 → <span class="cur cur-dark">USD</span> $155.34</div>
                 </div>
               </div>
               <div class="transfer-card">
                 <div class="transfer-avatar">J</div>
                 <div>
                   <div class="transfer-name">João recebeu</div>
-                  <div class="transfer-amount">🇪🇺 €200.00 → R$ 1.092,00</div>
+                  <div class="transfer-amount"><span class="cur cur-dark">EUR</span> €200.00 → R$ 1.092,00</div>
                 </div>
               </div>
               <div class="transfer-card">
                 <div class="transfer-avatar">A</div>
                 <div>
                   <div class="transfer-name">Ana enviou</div>
-                  <div class="transfer-amount">R$ 2.500,00 → 🇺🇸 $485.44 USD</div>
+                  <div class="transfer-amount">R$ 2.500,00 → <span class="cur cur-dark">USD</span> $485.44</div>
                 </div>
               </div>
             </div>
@@ -483,10 +494,10 @@
             <div class="phone-frame-sm" aria-label="Interface do app FinApp mostrando opções de moeda" role="img">
               <div class="ph-top">Selecione a moeda</div>
               <div class="ph-list">
-                <div class="ph-item"><div class="ph-label">🇧🇷 <span>Reais</span></div><span class="ph-chev">›</span></div>
-                <div class="ph-item"><div class="ph-label">🇺🇸 <span>Dólares</span></div><span class="ph-chev">›</span></div>
-                <div class="ph-item"><div class="ph-label">🇪🇺 <span>Euros</span></div><span class="ph-chev">›</span></div>
-                <div class="ph-item"><div class="ph-label">🔵 <span>Cripto</span></div><span class="ph-chev">›</span></div>
+                <div class="ph-item"><div class="ph-label"><span class="cur">BRL</span><span>Reais</span></div><span class="ph-chev">›</span></div>
+                <div class="ph-item"><div class="ph-label"><span class="cur">USD</span><span>Dólares</span></div><span class="ph-chev">›</span></div>
+                <div class="ph-item"><div class="ph-label"><span class="cur">EUR</span><span>Euros</span></div><span class="ph-chev">›</span></div>
+                <div class="ph-item"><div class="ph-label"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="rgba(255,255,255,0.5)" stroke-width="2" stroke-linecap="round" style="margin-right:8px"><circle cx="12" cy="12" r="9"/><path d="M9 8h4.5a2 2 0 0 1 0 4H9m0 0h5a2 2 0 0 1 0 4H9M9 8v8m3-10v2m0 8v2"/></svg><span>Cripto</span></div><span class="ph-chev">›</span></div>
               </div>
             </div>
           </div>
@@ -505,7 +516,7 @@
         <h2 class="fade-in">Por que a FinApp?</h2>
         <p class="why-subtitle fade-in">Construída para quem vive sem fronteiras. Simples, transparente e sempre ao seu lado.</p>
         <div class="why-preview fade-in" role="img" aria-label="Ilustração da interface do app FinApp">
-          <div class="why-preview-icon">📱</div>
+          <div class="why-preview-icon"><svg width="40" height="40" viewBox="0 0 24 24" fill="none" stroke="white" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><rect x="5" y="2" width="14" height="20" rx="2"/><circle cx="12" cy="17" r="1" fill="white" stroke="none"/></svg></div>
           <div class="why-preview-text">FinApp — suas finanças, sem fronteiras</div>
           <div class="why-badge">FinApp</div>
         </div>
@@ -571,8 +582,8 @@
       <div class="container">
         <h2 class="text-center fade-in">Para quem está <span style="color:#00E676">sempre</span> em movimento.</h2>
         <div class="ratings-row fade-in">
-          <div class="rating-item">🍎 App Store &nbsp;<span class="rating-stars">★★★★★</span>&nbsp; 4.5</div>
-          <div class="rating-item">▶ Google Play &nbsp;<span class="rating-stars">★★★★★</span>&nbsp; 4.7</div>
+          <div class="rating-item"><svg width="14" height="17" viewBox="0 0 24 29" fill="currentColor" style="margin-right:6px;vertical-align:middle"><path d="M18.71 19.5c-.83 1.24-1.71 2.45-3.05 2.47-1.34.03-1.77-.79-3.29-.79-1.53 0-2 .77-3.27.82-1.31.05-2.3-1.32-3.14-2.53C4.25 17 2.94 12.45 4.7 9.39c.87-1.52 2.43-2.48 4.12-2.51 1.28-.02 2.5.87 3.29.87.78 0 2.26-1.07 3.8-.91.65.03 2.47.26 3.64 1.98-.09.06-2.17 1.28-2.15 3.81.03 3.02 2.65 4.03 2.68 4.04-.03.07-.42 1.44-1.38 2.83M13 3.5c.73-.83 1.94-1.46 2.94-1.5.13 1.17-.34 2.35-1.04 3.19-.69.85-1.83 1.51-2.95 1.42-.15-1.15.41-2.35 1.05-3.11z"/></svg>App Store &nbsp;<span class="rating-stars">★★★★★</span>&nbsp; 4.5</div>
+          <div class="rating-item"><svg width="14" height="14" viewBox="0 0 24 24" fill="currentColor" style="margin-right:6px;vertical-align:middle"><polygon points="5,3 19,12 5,21"/></svg>Google Play &nbsp;<span class="rating-stars">★★★★★</span>&nbsp; 4.7</div>
         </div>
         <div class="reviews-grid fade-in">
           <div class="review-card">
@@ -633,18 +644,18 @@
       <div class="container">
         <h2 class="text-center fade-in">Participe do movimento <span style="color:#00E676">global</span>.</h2>
         <div class="ratings-row fade-in">
-          <div class="rating-item">🍎 App Store &nbsp;<span class="rating-stars">★★★★★</span>&nbsp; 4.5</div>
-          <div class="rating-item">▶ Google Play &nbsp;<span class="rating-stars">★★★★★</span>&nbsp; 4.7</div>
+          <div class="rating-item"><svg width="14" height="17" viewBox="0 0 24 29" fill="currentColor" style="margin-right:6px;vertical-align:middle"><path d="M18.71 19.5c-.83 1.24-1.71 2.45-3.05 2.47-1.34.03-1.77-.79-3.29-.79-1.53 0-2 .77-3.27.82-1.31.05-2.3-1.32-3.14-2.53C4.25 17 2.94 12.45 4.7 9.39c.87-1.52 2.43-2.48 4.12-2.51 1.28-.02 2.5.87 3.29.87.78 0 2.26-1.07 3.8-.91.65.03 2.47.26 3.64 1.98-.09.06-2.17 1.28-2.15 3.81.03 3.02 2.65 4.03 2.68 4.04-.03.07-.42 1.44-1.38 2.83M13 3.5c.73-.83 1.94-1.46 2.94-1.5.13 1.17-.34 2.35-1.04 3.19-.69.85-1.83 1.51-2.95 1.42-.15-1.15.41-2.35 1.05-3.11z"/></svg>App Store &nbsp;<span class="rating-stars">★★★★★</span>&nbsp; 4.5</div>
+          <div class="rating-item"><svg width="14" height="14" viewBox="0 0 24 24" fill="currentColor" style="margin-right:6px;vertical-align:middle"><polygon points="5,3 19,12 5,21"/></svg>Google Play &nbsp;<span class="rating-stars">★★★★★</span>&nbsp; 4.7</div>
         </div>
         <div class="dest-grid fade-in">
-          <div class="dest-card" style="background:linear-gradient(135deg,#f093fb,#f5576c)"><div class="dest-badge">📍 Barcelona</div></div>
-          <div class="dest-card" style="background:linear-gradient(135deg,#4facfe,#00f2fe)"><div class="dest-badge">📍 Cairo</div></div>
-          <div class="dest-card" style="background:linear-gradient(135deg,#43e97b,#38f9d7)"><div class="dest-badge">📍 Tóquio</div></div>
-          <div class="dest-card" style="background:linear-gradient(135deg,#fa709a,#fee140)"><div class="dest-badge">📍 Lisboa</div></div>
-          <div class="dest-card" style="background:linear-gradient(135deg,#a18cd1,#fbc2eb)"><div class="dest-badge">📍 Miami</div></div>
-          <div class="dest-card" style="background:linear-gradient(135deg,#fccb90,#d57eeb)"><div class="dest-badge">📍 Dubai</div></div>
-          <div class="dest-card" style="background:linear-gradient(135deg,#667eea,#764ba2)"><div class="dest-badge">📍 Londres</div></div>
-          <div class="dest-card" style="background:linear-gradient(135deg,#f7971e,#ffd200)"><div class="dest-badge">📍 Nova York</div></div>
+          <div class="dest-card" style="background:linear-gradient(135deg,#f093fb,#f5576c)"><div class="dest-badge"><svg width="8" height="11" viewBox="0 0 8 11" fill="white" style="margin-right:4px;vertical-align:middle"><path d="M4 0C1.79 0 0 1.79 0 4c0 3 4 7 4 7s4-4 4-7c0-2.21-1.79-4-4-4zm0 5.5C3.17 5.5 2.5 4.83 2.5 4S3.17 2.5 4 2.5 5.5 3.17 5.5 4 4.83 5.5 4 5.5z"/></svg>Barcelona</div></div>
+          <div class="dest-card" style="background:linear-gradient(135deg,#4facfe,#00f2fe)"><div class="dest-badge"><svg width="8" height="11" viewBox="0 0 8 11" fill="white" style="margin-right:4px;vertical-align:middle"><path d="M4 0C1.79 0 0 1.79 0 4c0 3 4 7 4 7s4-4 4-7c0-2.21-1.79-4-4-4zm0 5.5C3.17 5.5 2.5 4.83 2.5 4S3.17 2.5 4 2.5 5.5 3.17 5.5 4 4.83 5.5 4 5.5z"/></svg>Cairo</div></div>
+          <div class="dest-card" style="background:linear-gradient(135deg,#43e97b,#38f9d7)"><div class="dest-badge"><svg width="8" height="11" viewBox="0 0 8 11" fill="white" style="margin-right:4px;vertical-align:middle"><path d="M4 0C1.79 0 0 1.79 0 4c0 3 4 7 4 7s4-4 4-7c0-2.21-1.79-4-4-4zm0 5.5C3.17 5.5 2.5 4.83 2.5 4S3.17 2.5 4 2.5 5.5 3.17 5.5 4 4.83 5.5 4 5.5z"/></svg>Tóquio</div></div>
+          <div class="dest-card" style="background:linear-gradient(135deg,#fa709a,#fee140)"><div class="dest-badge"><svg width="8" height="11" viewBox="0 0 8 11" fill="white" style="margin-right:4px;vertical-align:middle"><path d="M4 0C1.79 0 0 1.79 0 4c0 3 4 7 4 7s4-4 4-7c0-2.21-1.79-4-4-4zm0 5.5C3.17 5.5 2.5 4.83 2.5 4S3.17 2.5 4 2.5 5.5 3.17 5.5 4 4.83 5.5 4 5.5z"/></svg>Lisboa</div></div>
+          <div class="dest-card" style="background:linear-gradient(135deg,#a18cd1,#fbc2eb)"><div class="dest-badge"><svg width="8" height="11" viewBox="0 0 8 11" fill="white" style="margin-right:4px;vertical-align:middle"><path d="M4 0C1.79 0 0 1.79 0 4c0 3 4 7 4 7s4-4 4-7c0-2.21-1.79-4-4-4zm0 5.5C3.17 5.5 2.5 4.83 2.5 4S3.17 2.5 4 2.5 5.5 3.17 5.5 4 4.83 5.5 4 5.5z"/></svg>Miami</div></div>
+          <div class="dest-card" style="background:linear-gradient(135deg,#fccb90,#d57eeb)"><div class="dest-badge"><svg width="8" height="11" viewBox="0 0 8 11" fill="white" style="margin-right:4px;vertical-align:middle"><path d="M4 0C1.79 0 0 1.79 0 4c0 3 4 7 4 7s4-4 4-7c0-2.21-1.79-4-4-4zm0 5.5C3.17 5.5 2.5 4.83 2.5 4S3.17 2.5 4 2.5 5.5 3.17 5.5 4 4.83 5.5 4 5.5z"/></svg>Dubai</div></div>
+          <div class="dest-card" style="background:linear-gradient(135deg,#667eea,#764ba2)"><div class="dest-badge"><svg width="8" height="11" viewBox="0 0 8 11" fill="white" style="margin-right:4px;vertical-align:middle"><path d="M4 0C1.79 0 0 1.79 0 4c0 3 4 7 4 7s4-4 4-7c0-2.21-1.79-4-4-4zm0 5.5C3.17 5.5 2.5 4.83 2.5 4S3.17 2.5 4 2.5 5.5 3.17 5.5 4 4.83 5.5 4 5.5z"/></svg>Londres</div></div>
+          <div class="dest-card" style="background:linear-gradient(135deg,#f7971e,#ffd200)"><div class="dest-badge"><svg width="8" height="11" viewBox="0 0 8 11" fill="white" style="margin-right:4px;vertical-align:middle"><path d="M4 0C1.79 0 0 1.79 0 4c0 3 4 7 4 7s4-4 4-7c0-2.21-1.79-4-4-4zm0 5.5C3.17 5.5 2.5 4.83 2.5 4S3.17 2.5 4 2.5 5.5 3.17 5.5 4 4.83 5.5 4 5.5z"/></svg>Nova York</div></div>
         </div>
         <div class="text-center fade-in">
           <a href="#" class="btn-pill" style="font-size:17px;padding:18px 48px">Baixar FinApp</a>
