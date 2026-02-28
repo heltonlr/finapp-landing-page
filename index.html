@@ -330,9 +330,15 @@
     /* ===== MOVIMENTO GLOBAL ===== */
     .dest-grid { display: grid; grid-template-columns: repeat(4,1fr); gap: 16px; margin: 48px 0; }
     .dest-card { height: 200px; border-radius: 16px; position: relative; overflow: hidden; }
+    .dest-card img { width: 100%; height: 100%; object-fit: cover; display: block; }
+    .dest-card::after {
+      content: ''; position: absolute; inset: 0;
+      background: linear-gradient(to top, rgba(0,0,0,0.6) 0%, rgba(0,0,0,0.1) 50%, transparent 100%);
+      pointer-events: none;
+    }
     .dest-badge {
-      position: absolute; bottom: 12px; left: 12px;
-      background: rgba(0,0,0,0.55); backdrop-filter: blur(4px);
+      position: absolute; bottom: 12px; left: 12px; z-index: 1;
+      background: rgba(0,0,0,0.45); backdrop-filter: blur(4px);
       border-radius: 8px; padding: 4px 10px; font-size: 12px; color: #FFFFFF; font-weight: 500;
     }
 
@@ -720,14 +726,14 @@
           <div class="rating-item"><svg width="14" height="14" viewBox="0 0 24 24" fill="currentColor" style="margin-right:6px;vertical-align:middle"><polygon points="5,3 19,12 5,21"/></svg>Google Play &nbsp;<span class="rating-stars">★★★★★</span>&nbsp; 4.7</div>
         </div>
         <div class="dest-grid fade-in">
-          <div class="dest-card" style="background:linear-gradient(135deg,#f093fb,#f5576c)"><div class="dest-badge"><svg width="8" height="11" viewBox="0 0 8 11" fill="white" style="margin-right:4px;vertical-align:middle"><path d="M4 0C1.79 0 0 1.79 0 4c0 3 4 7 4 7s4-4 4-7c0-2.21-1.79-4-4-4zm0 5.5C3.17 5.5 2.5 4.83 2.5 4S3.17 2.5 4 2.5 5.5 3.17 5.5 4 4.83 5.5 4 5.5z"/></svg>Barcelona</div></div>
-          <div class="dest-card" style="background:linear-gradient(135deg,#4facfe,#00f2fe)"><div class="dest-badge"><svg width="8" height="11" viewBox="0 0 8 11" fill="white" style="margin-right:4px;vertical-align:middle"><path d="M4 0C1.79 0 0 1.79 0 4c0 3 4 7 4 7s4-4 4-7c0-2.21-1.79-4-4-4zm0 5.5C3.17 5.5 2.5 4.83 2.5 4S3.17 2.5 4 2.5 5.5 3.17 5.5 4 4.83 5.5 4 5.5z"/></svg>Cairo</div></div>
-          <div class="dest-card" style="background:linear-gradient(135deg,#43e97b,#38f9d7)"><div class="dest-badge"><svg width="8" height="11" viewBox="0 0 8 11" fill="white" style="margin-right:4px;vertical-align:middle"><path d="M4 0C1.79 0 0 1.79 0 4c0 3 4 7 4 7s4-4 4-7c0-2.21-1.79-4-4-4zm0 5.5C3.17 5.5 2.5 4.83 2.5 4S3.17 2.5 4 2.5 5.5 3.17 5.5 4 4.83 5.5 4 5.5z"/></svg>Tóquio</div></div>
-          <div class="dest-card" style="background:linear-gradient(135deg,#fa709a,#fee140)"><div class="dest-badge"><svg width="8" height="11" viewBox="0 0 8 11" fill="white" style="margin-right:4px;vertical-align:middle"><path d="M4 0C1.79 0 0 1.79 0 4c0 3 4 7 4 7s4-4 4-7c0-2.21-1.79-4-4-4zm0 5.5C3.17 5.5 2.5 4.83 2.5 4S3.17 2.5 4 2.5 5.5 3.17 5.5 4 4.83 5.5 4 5.5z"/></svg>Lisboa</div></div>
-          <div class="dest-card" style="background:linear-gradient(135deg,#a18cd1,#fbc2eb)"><div class="dest-badge"><svg width="8" height="11" viewBox="0 0 8 11" fill="white" style="margin-right:4px;vertical-align:middle"><path d="M4 0C1.79 0 0 1.79 0 4c0 3 4 7 4 7s4-4 4-7c0-2.21-1.79-4-4-4zm0 5.5C3.17 5.5 2.5 4.83 2.5 4S3.17 2.5 4 2.5 5.5 3.17 5.5 4 4.83 5.5 4 5.5z"/></svg>Miami</div></div>
-          <div class="dest-card" style="background:linear-gradient(135deg,#fccb90,#d57eeb)"><div class="dest-badge"><svg width="8" height="11" viewBox="0 0 8 11" fill="white" style="margin-right:4px;vertical-align:middle"><path d="M4 0C1.79 0 0 1.79 0 4c0 3 4 7 4 7s4-4 4-7c0-2.21-1.79-4-4-4zm0 5.5C3.17 5.5 2.5 4.83 2.5 4S3.17 2.5 4 2.5 5.5 3.17 5.5 4 4.83 5.5 4 5.5z"/></svg>Dubai</div></div>
-          <div class="dest-card" style="background:linear-gradient(135deg,#667eea,#764ba2)"><div class="dest-badge"><svg width="8" height="11" viewBox="0 0 8 11" fill="white" style="margin-right:4px;vertical-align:middle"><path d="M4 0C1.79 0 0 1.79 0 4c0 3 4 7 4 7s4-4 4-7c0-2.21-1.79-4-4-4zm0 5.5C3.17 5.5 2.5 4.83 2.5 4S3.17 2.5 4 2.5 5.5 3.17 5.5 4 4.83 5.5 4 5.5z"/></svg>Londres</div></div>
-          <div class="dest-card" style="background:linear-gradient(135deg,#f7971e,#ffd200)"><div class="dest-badge"><svg width="8" height="11" viewBox="0 0 8 11" fill="white" style="margin-right:4px;vertical-align:middle"><path d="M4 0C1.79 0 0 1.79 0 4c0 3 4 7 4 7s4-4 4-7c0-2.21-1.79-4-4-4zm0 5.5C3.17 5.5 2.5 4.83 2.5 4S3.17 2.5 4 2.5 5.5 3.17 5.5 4 4.83 5.5 4 5.5z"/></svg>Nova York</div></div>
+          <div class="dest-card"><img src="https://source.unsplash.com/600x400/?people,barcelona&sig=1" alt="Barcelona" loading="lazy"><div class="dest-badge"><svg width="8" height="11" viewBox="0 0 8 11" fill="white" style="margin-right:4px;vertical-align:middle"><path d="M4 0C1.79 0 0 1.79 0 4c0 3 4 7 4 7s4-4 4-7c0-2.21-1.79-4-4-4zm0 5.5C3.17 5.5 2.5 4.83 2.5 4S3.17 2.5 4 2.5 5.5 3.17 5.5 4 4.83 5.5 4 5.5z"/></svg>Barcelona</div></div>
+          <div class="dest-card"><img src="https://source.unsplash.com/600x400/?people,crowd&sig=2" alt="Cairo" loading="lazy"><div class="dest-badge"><svg width="8" height="11" viewBox="0 0 8 11" fill="white" style="margin-right:4px;vertical-align:middle"><path d="M4 0C1.79 0 0 1.79 0 4c0 3 4 7 4 7s4-4 4-7c0-2.21-1.79-4-4-4zm0 5.5C3.17 5.5 2.5 4.83 2.5 4S3.17 2.5 4 2.5 5.5 3.17 5.5 4 4.83 5.5 4 5.5z"/></svg>Cairo</div></div>
+          <div class="dest-card"><img src="https://source.unsplash.com/600x400/?people,japan&sig=3" alt="Tóquio" loading="lazy"><div class="dest-badge"><svg width="8" height="11" viewBox="0 0 8 11" fill="white" style="margin-right:4px;vertical-align:middle"><path d="M4 0C1.79 0 0 1.79 0 4c0 3 4 7 4 7s4-4 4-7c0-2.21-1.79-4-4-4zm0 5.5C3.17 5.5 2.5 4.83 2.5 4S3.17 2.5 4 2.5 5.5 3.17 5.5 4 4.83 5.5 4 5.5z"/></svg>Tóquio</div></div>
+          <div class="dest-card"><img src="https://source.unsplash.com/600x400/?people,lisbon&sig=4" alt="Lisboa" loading="lazy"><div class="dest-badge"><svg width="8" height="11" viewBox="0 0 8 11" fill="white" style="margin-right:4px;vertical-align:middle"><path d="M4 0C1.79 0 0 1.79 0 4c0 3 4 7 4 7s4-4 4-7c0-2.21-1.79-4-4-4zm0 5.5C3.17 5.5 2.5 4.83 2.5 4S3.17 2.5 4 2.5 5.5 3.17 5.5 4 4.83 5.5 4 5.5z"/></svg>Lisboa</div></div>
+          <div class="dest-card"><img src="https://source.unsplash.com/600x400/?people,beach&sig=5" alt="Miami" loading="lazy"><div class="dest-badge"><svg width="8" height="11" viewBox="0 0 8 11" fill="white" style="margin-right:4px;vertical-align:middle"><path d="M4 0C1.79 0 0 1.79 0 4c0 3 4 7 4 7s4-4 4-7c0-2.21-1.79-4-4-4zm0 5.5C3.17 5.5 2.5 4.83 2.5 4S3.17 2.5 4 2.5 5.5 3.17 5.5 4 4.83 5.5 4 5.5z"/></svg>Miami</div></div>
+          <div class="dest-card"><img src="https://source.unsplash.com/600x400/?people,dubai&sig=6" alt="Dubai" loading="lazy"><div class="dest-badge"><svg width="8" height="11" viewBox="0 0 8 11" fill="white" style="margin-right:4px;vertical-align:middle"><path d="M4 0C1.79 0 0 1.79 0 4c0 3 4 7 4 7s4-4 4-7c0-2.21-1.79-4-4-4zm0 5.5C3.17 5.5 2.5 4.83 2.5 4S3.17 2.5 4 2.5 5.5 3.17 5.5 4 4.83 5.5 4 5.5z"/></svg>Dubai</div></div>
+          <div class="dest-card"><img src="https://source.unsplash.com/600x400/?people,london&sig=7" alt="Londres" loading="lazy"><div class="dest-badge"><svg width="8" height="11" viewBox="0 0 8 11" fill="white" style="margin-right:4px;vertical-align:middle"><path d="M4 0C1.79 0 0 1.79 0 4c0 3 4 7 4 7s4-4 4-7c0-2.21-1.79-4-4-4zm0 5.5C3.17 5.5 2.5 4.83 2.5 4S3.17 2.5 4 2.5 5.5 3.17 5.5 4 4.83 5.5 4 5.5z"/></svg>Londres</div></div>
+          <div class="dest-card"><img src="https://source.unsplash.com/600x400/?people,newyork&sig=8" alt="Nova York" loading="lazy"><div class="dest-badge"><svg width="8" height="11" viewBox="0 0 8 11" fill="white" style="margin-right:4px;vertical-align:middle"><path d="M4 0C1.79 0 0 1.79 0 4c0 3 4 7 4 7s4-4 4-7c0-2.21-1.79-4-4-4zm0 5.5C3.17 5.5 2.5 4.83 2.5 4S3.17 2.5 4 2.5 5.5 3.17 5.5 4 4.83 5.5 4 5.5z"/></svg>Nova York</div></div>
         </div>
         <div class="text-center fade-in">
           <a href="#" class="btn-pill" style="font-size:17px;padding:18px 48px">Baixar FinApp</a>
